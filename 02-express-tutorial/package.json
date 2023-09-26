@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon oop.js",
+    "dev": "nodemon 11-router-app.js",
     "script": "nodemon 11-router-app.js",
-    "newscript": "node 11-router-app.js"
+    "newscript": "nodemon 11-router-app.js"
   },
   "keywords": [],
   "author": "Matthew Andres <mandre361@west-mec.edu> (https://github.com/MatthewAndresWestMec)",

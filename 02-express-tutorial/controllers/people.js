@@ -8,12 +8,15 @@ const readPeople = (req, res) => {
 // Post function for creating people 
 const createPeople = (req, res) => {
     let length = people.length + 1;
-    const { name } = req.body;
+    const { name, desc } = req.body;
     const id = length++;
     if (!name) {
         return res.status(400).json({ data: [], success: false, msg: 'Please enter a name' })
     }
-    const person = { name: name, id: id };
+    if (!desc) {
+        return res.status(400).json({ data: [], success: false, msg: 'Please enter a desc' })
+    }
+    const person = { name: name, id: id, desc: desc};
     people.push(person);
     res.status(201).json({ success: true, data: [people] })
 }
@@ -21,7 +24,7 @@ const createPeople = (req, res) => {
 // Put function for updating people
 const updatePeople = (req, res) => {
     const { id } = req.params
-    const { name } = req.body
+    const { name, desc } = req.body
     const person = people.find((person) => person.id === Number(id))
 
     if (!person) {
@@ -32,6 +35,7 @@ const updatePeople = (req, res) => {
         if (person.id === Number(id)) {
 
             person.name = name;
+            person.desc = desc;
         }
         return person;
     })
