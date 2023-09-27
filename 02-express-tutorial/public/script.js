@@ -7,7 +7,7 @@ const fetchPeople = async () => {
         console.log(data);
 
         const people = data.data.map((person) => {
-            return `<h5>ID:${person.id}  TASK NAME:${person.name}<input type="checkbox" class="checkFinish" name="checkFinish"><br> Desc: ${person.desc} <br><button onclick="nameEdit('${person.id}', '${person.name}','${person.desc}')">Edit</button> <button onclick="deletePeople(${person.id})">Delete</button>  </h5>`;
+            return `<h5 id="header${person.id}">ID:${person.id}  TASK NAME:${person.name}<input type="checkbox" onchange="checkBox(${person.id})" id="${person.id}""name="checkFinish"><br> Desc: ${person.desc} <br><button onclick="nameEdit('${person.id}', '${person.name}','${person.desc}')">Edit</button> <button onclick="deletePeople(${person.id})">Delete</button>  </h5>`;
         })
         result.innerHTML = people.join("");
     } catch (error) {
@@ -63,9 +63,26 @@ function deletePeople(id) {
 
 var currentID = '';
 
+// autofills inputs with names
 function nameEdit(pId, pName, desc) {
     editMode = true;
     input.value = pName;
     inputDesc.value = desc;
     currentID = pId;
+}
+
+function checkBox(personId){
+    // only uses id for adding decoration
+    let chkBox = document.getElementById(`${personId}`)
+    if(chkBox.checked==true){
+        // console.log(`Checked! ${personId}`);
+        // Uses ID of the h5 tag to add/remove decoration
+        document.getElementById(`header${personId}`).style.textDecoration = "line-through"
+        document.getElementById(`header${personId}`).style.backgroundColor = "gray"
+          }
+    else {
+        //  console.log(`Unchecked! ${personId}`);
+         document.getElementById(`header${personId}`).style.textDecoration = "none"
+         document.getElementById(`header${personId}`).style.backgroundColor = "#f2f4f8"
+    } 
 }
