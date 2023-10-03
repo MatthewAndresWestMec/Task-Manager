@@ -1,4 +1,4 @@
-const result = document.querySelector(".result");
+const result = document.querySelector(".resultPeople");
 var editMode = false;
 
 const fetchPeople = async () => {
@@ -7,7 +7,7 @@ const fetchPeople = async () => {
         console.log(data);
 
         const people = data.data.map((person) => {
-            return `<h5 id="header${person.id}">ID:${person.id}  TASK NAME:${person.name}<input type="checkbox" onchange="checkBox(${person.id})" id="${person.id}""name="checkFinish"><br> Desc: ${person.desc} <br><button onclick="nameEdit('${person.id}', '${person.name}','${person.desc}')">Edit</button> <button onclick="deletePeople(${person.id})">Delete</button>  </h5>`;
+            return `<h5 id="header${person.id}">ID:${person.id}  TASK NAME:${person.name}<input type="checkbox" onchange="checkBox(${person.id})" id="${person.id}""name="checkFinish"><br> Age: ${person.age} <br><button onclick="nameEdit('${person.id}', '${person.name}','${person.age}')">Edit</button> <button onclick="deletePeople(${person.id})">Delete</button>  </h5>`;
         })
         result.innerHTML = people.join("");
     } catch (error) {
@@ -20,26 +20,26 @@ fetchPeople();
 // HTML
 const btn = document.querySelector(".submit-btn");
 const input = document.querySelector(".form-input");
-const inputDesc = document.querySelector(".form-input-desc");
+const inputAge = document.querySelector(".form-input-age");
 const formAlert = document.querySelector(".form-alert");
 
 btn.addEventListener("click", async (e) => {
     e.preventDefault();
     const nameValue = input.value;
-    const descValue = inputDesc.value;
+    const ageValue = inputAge.value;
     try {
         if (editMode == false) {
-            const { data } = await axios.post('/api/people', { name: nameValue, desc: descValue });
+            const { data } = await axios.post('/api/people', { name: nameValue, age: ageValue });
             const h5 = document.createElement('h5');
             result.appendChild(h5);
             h5.textContent = data.person;
         } else {
             const newName = input.value;
-            const newDesc = inputDesc.value;
+            const newAge = inputAge.value;
             fetch(`/api/people/${currentID}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: newName, desc: newDesc })
+                body: JSON.stringify({ name: newName, age: newAge })
             })
             fetchPeople();
             editMode = false;
@@ -50,7 +50,7 @@ btn.addEventListener("click", async (e) => {
         formAlert.textContent = error.response.data.msg;
     }
     input.value = "";
-    inputDesc.value = "";
+    inputAge.value = "";
 })
 
 function deletePeople(id) {
@@ -64,10 +64,10 @@ function deletePeople(id) {
 var currentID = '';
 
 // autofills inputs with names
-function nameEdit(pId, pName, desc) {
+function nameEdit(pId, pName, age) {
     editMode = true;
     input.value = pName;
-    inputDesc.value = desc;
+    inputAge.value = age;
     currentID = pId;
 }
 
