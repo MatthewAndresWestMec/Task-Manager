@@ -15,3 +15,32 @@
 
 // module.export = mongoose.model('Person', personSchema)
 // Model.find({complete: true})
+const mongoose = require('mongoose');
+
+const personSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    age: {
+      type: Number,
+      required: true,
+    },
+    id: {
+      type: Number,
+      required: true,
+    },
+    tasksAssigned: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Task',
+      },
+    ],
+  },
+  {
+    collection: 'People', 
+  }
+);
+
+module.exports = mongoose.model('Person', personSchema);

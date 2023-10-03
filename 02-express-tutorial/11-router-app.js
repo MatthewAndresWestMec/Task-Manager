@@ -25,7 +25,7 @@ app.use('/login', auth)
 
 const initServer = async () => {
 try{
-    // await connectDB(process.env.MONGO_URL)
+    await connectDB(process.env.MONGO_URI) 
     app.listen(5000, () =>{
     console.log('listening on port 5000')
 })}

@@ -36,6 +36,7 @@ btn.addEventListener("click", async (e) => {
         } else {
             const newName = input.value;
             const newAge = inputAge.value;
+             // const { data } = await axios.put(`/api/people/${currentID}`, { name: nameValue, age: ageValue });
             fetch(`/api/people/${currentID}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },

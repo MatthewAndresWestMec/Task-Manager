@@ -1,3 +1,10 @@
+let TASK = require('./models/task');
+let PERSON = require('./models/person');
+const express = require('express');
+const app = express();
+const morgan = require('morgan');
+require('dotenv').config();
+const connectDB = require('./db/connect');
 
 const people = [
   {
@@ -155,4 +162,25 @@ const tasks = [
   }
 ];
 
-module.exports = {tasks, people};
+// module.exports = {tasks, people}; 
+
+async function pushData(){
+    await connectDB(process.env.MONGO_URI);
+    for(let i = 0; i < tasks.length; i++){
+        const data = new TASK(
+            tasks[i]
+        )
+        await data.validate();
+        await data.save();
+    }
+
+    for(let i = 0; i < people.length; i++){
+        const data = new PERSON(
+            people[i]
+        )
+        await data.validate();
+        await data.save();
+    }
+}
+
+pushData();

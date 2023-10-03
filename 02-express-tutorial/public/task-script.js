@@ -1,9 +1,9 @@
-const result = document.querySelector(".result");
+const result = document.querySelector(".resultTasks");
 var editMode = false;
 
 const fetchTasks = async () => {
     try {
-        const { data } = await axios.get('/api/tasks');
+        const {data}  = await axios.get('/api/tasks');
         console.log(data);
 
         const tasks = data.data.map((task) => {
@@ -11,6 +11,7 @@ const fetchTasks = async () => {
         });
         result.innerHTML = tasks.join("");
     } catch (error) {
+        console.log(error)
         formAlert.textContent = error.response.data.msg;
     }
 };
