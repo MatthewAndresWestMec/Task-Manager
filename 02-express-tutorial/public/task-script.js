@@ -29,18 +29,22 @@ btn.addEventListener("click", async (e) => {
     const taskDescValue = inputDesc.value;
     try {
         if (editMode === false) {
+
             const { data } = await axios.post('/api/tasks', { taskName: taskNameValue, taskDesc: taskDescValue });
             const h5 = document.createElement('h5');
             result.appendChild(h5);
             h5.textContent = `ID:${data.taskID}  TASK NAME:${data.taskName} <br> Desc: ${data.taskDesc} <br><button onclick="taskNameEdit('${data.taskID}', '${data.taskName}', '${data.taskDesc}')">Edit</button> <button onclick="deleteTask('${data.taskID}')">Delete</button>`;
+            fetchTasks();
         } else {
             const newName = input.value;
             const newDesc = inputDesc.value;
-            await fetch(`/api/tasks/${currentID}`, {
+
+            fetch(`/api/tasks/${currentID}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ taskName: newName, taskDesc: newDesc })
             });
+
             fetchTasks();
             editMode = false;
         }

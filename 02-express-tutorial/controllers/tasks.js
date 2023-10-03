@@ -12,15 +12,14 @@ const readTasks = async (req, res) => {
 
 // Post function for creating tasks
 const createTasks = async (req, res) => {
-  const { taskName, taskDesc } = req.body;
-
-  if (!taskName || !taskDesc) {
-    return res.status(400).json({ data: [], success: false, msg: 'Please enter a taskName and taskDesc' });
-  }
-
   try {
-    const task = new Task({ taskName, taskDesc });
-    await task.save();
+    const { taskName, taskDesc } = req.body;
+
+    if (!taskName || !taskDesc) {
+      return res.status(400).json({ data: [], success: false, msg: 'Please enter a taskName and taskDesc' });
+    }
+    const allTasks = await Task.find({});
+    const task = await Task.create({ taskName: taskName, taskDesc: taskDesc, taskID: allTasks.length + 1 });
     res.status(201).json({ success: true, data: task });
   } catch (error) {
     res.status(500).json({ success: false, msg: 'Error creating task' });
@@ -29,44 +28,39 @@ const createTasks = async (req, res) => {
 
 // Put function for updating tasks
 const updateTasks = async (req, res) => {
-  const { taskId } = req.params;
-  const { taskName, taskDesc } = req.body;
-
   try {
-    const task = await Task.findById(taskId);
+    let { taskID } = req.params
+    let { taskName, taskDesc } = req.body;
+    let changeTask = Task.findOne({ taskID: taskID })
 
-    if (!task) {
-      return res.status(404).json({ success: false, msg: 'No matching taskId found' });
+    if (!taskName) {
+     taskNameaskName = changeTask.TaskName;
+      console.log('notask name')
+    }
+    if (!taskDesc) {
+      taskDesc = changeTask.TaskDesc;
+      console.log('notask desc')
+
     }
 
-    task.taskName = taskName;
-    task.taskDesc = taskDesc;
-    await task.save();
 
-    const updatedTasks = await Task.find();
-    res.status(202).json({ data: updatedTasks, success: true });
+    let task = await Task.findOneAndUpdate({ taskID: taskID }, { taskName: taskName, taskDesc: taskDesc });
+    res.json(task);
   } catch (error) {
-    res.status(500).json({ success: false, msg: 'Error updating task' });
+    console.log(error);
   }
 };
 
 // Delete function for removing tasks
 const deleteTasks = async (req, res) => {
-  const { taskId } = req.params;
-
   try {
-    const task = await Task.findById(taskId);
+    let { taskID } = req.params
+    // let changeTask = Task.findOne({taskID:taskID})
 
-    if (!task) {
-      return res.status(404).json({ success: false, msg: 'No matching taskId found' });
-    }
-
-    await task.remove();
-
-    const updatedTasks = await Task.find();
-    res.status(202).json({ data: updatedTasks, success: true });
+    let task = await Task.findOneAndDelete({ taskID: taskID });
+    res.json(task);
   } catch (error) {
-    res.status(500).json({ success: false, msg: 'Error deleting task' });
+    console.log(error);
   }
 };
 
@@ -78,7 +72,7 @@ module.exports = { createTasks, readTasks, updateTasks, deleteTasks };
 //     res.json({ success: true, data: tasks })
 // }
 
-// // Post function for creating tasks 
+// // Post function for creating tasks
 // const createTasks = (req, res) => {
 //     let length = tasks.length + 1;
 //     const { taskName, taskDesc } = req.body;

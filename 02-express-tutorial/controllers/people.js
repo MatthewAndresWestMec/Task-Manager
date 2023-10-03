@@ -11,16 +11,17 @@ const readPeople = async (req, res) => {
 };
 
 // Post function for creating people
-const createPeople = async (req, res) => {
-  const { name, age } = req.body;
-  
-  if (!name || !age) {
-    return res.status(400).json({ data: [], success: false, msg: 'Please enter a name and age' });
-  }
-  
+const createPeople = async (req, res) => { 
   try {
-    const person = new Person({ name, age });
-    await person.save();
+    const { name, age } = req.body;
+    
+    if (!name || !age) {
+      return res.status(400).json({ data: [], success: false, msg: 'Please enter a name and age' });
+    }
+    
+    const allPeople = await Person.find({});
+    const person = await Person.create({ name: name, age: age , id:allPeople.length+1 });
+
     res.status(201).json({ success: true, data: person });
   } catch (error) {
     res.status(500).json({ success: false, msg: 'Error creating person' });
@@ -29,47 +30,44 @@ const createPeople = async (req, res) => {
 
 // Put function for updating people
 const updatePeople = async (req, res) => {
-  const { id } = req.params;
-  const { name, age } = req.body;
-  
   try {
-    let people = person.find({})
-    let people2 = people.find((person) => {return person.id === id});
-    const person = await Person.findById(people2._id);
+    let {id} = req.params
+    let {name, age} = req.body;
+    let changePerson = Person.findOne({id:id})
 
-    if (!person) {
-      return res.status(404).json({ success: false, msg: 'No matching id found' });
+    if(!name){
+      name = changePerson.name;
+        console.log('no person name')
+    }
+    if(!age){
+      age = changePerson.age;
+        console.log('no person age')
+
     }
 
-    person.name = name;
-    person.age = age;
-    await person.save();
-    
-    const updatedPeople = await Person.find();
-    res.status(202).json({ data: updatedPeople, success: true });
-  } catch (error) {
-    res.status(500).json({ success: false, msg: 'Error updating person' });
-  }
+
+    let person = await Person.findOneAndUpdate({id:id}, {name:name, age:age});
+    res.json(person);
+} catch (error) {
+    console.log(error);
+}
+ 
 };
 
 // Delete function for removing people
 const deletePeople = async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const person = await Person.findById(id);
+    let {id} = req.params
+    // let changeTask = Task.findOne({taskID:taskID})
 
-    if (!person) {
-      return res.status(404).json({ success: false, msg: 'No matching id found' });
-    }
 
-    await person.remove();
-    
-    const updatedPeople = await Person.find();
-    res.status(202).json({ data: updatedPeople, success: true });
-  } catch (error) {
-    res.status(500).json({ success: false, msg: 'Error deleting person' });
-  }
+
+
+    let person = await Person.findOneAndDelete({id:id});
+    res.json(person);
+} catch (error) {
+    console.log(error);
+}
 };
 
 module.exports = { createPeople, readPeople, updatePeople, deletePeople };
