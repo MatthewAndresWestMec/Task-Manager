@@ -2,7 +2,19 @@
 
 /* Document
    ========================================================================== */
-
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      /* Two equal-width columns */
+      gap: 20px;
+      /* Gap between columns */
+    }
+  
+    .column {
+      border: 1px solid #ccc;
+      /* Add borders for clarity */
+      padding: 10px;
+    }
 /**
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.

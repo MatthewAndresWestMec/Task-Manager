@@ -27,26 +27,47 @@
         <section>
             <form>
                 <h3>ASSIGN TASKS TO PEOPLE</h3>
-                <!-- <div class="form-row">
-                    <label for="name"> enter name </label>
-                    <input type="text" name="name" id="name" class="form-input" autocomplete="false">
-                    <label for="taskDesc"> enter task description</label>
-                    <input type="text" name="taskDesc" id="taskDesc" class="form-input-taskDesc" autocomplete="false">
-                    <small class="form-alert"></small>
-                </div>
-                <button type="submit" class="block submit-btn">submit</button>
-            </form> -->
-            <!-- <div class="result">
 
-            </div> -->
-        </section>
-    </main>
+    <h1>Add/Remove Tasks to People</h1>
+    
+    <!-- Form to Add Task to a Person -->
+    <h2>Add Task to Person</h2>
+<form id="addTaskForm">
+    <label for="personId">Select Person:</label>
+    <select id="personId" name="personId">
+        <!-- Populate with options dynamically from the database -->
+    </select>
+    <label for="taskId">Select Task:</label>
+    <select id="taskId" name="taskId">
+        <!-- Populate with options dynamically from the database -->
+    </select>
+    <br>
+    <button type="button" onclick="assign()">Add Task</button>
+   <button type="button" onclick="remove()">Remove Task</button>
+</form>
+
+    <!-- Display List of People and Their Tasks -->
+    <h2>People and Their Tasks</h2>
+
+
+<div class="container">
+    <div class="column">
+        <h1>People</h1>
+                <div id="peopleTasksList1">
+                </div>
+    </div>
+    <div class="column">
+        <h1>Tasks</h1>
+        <div id="peopleTasksList2">
+        </div>
+    </div>
+</div> 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
         integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
         crossorigin="anonymous"></script>
-
-    <script src="task-script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="all-script.js"></script>
 </body>
 
 </html>

@@ -7,7 +7,7 @@ const app = express();
 const tasks = require('./routes/tasks-controller');
 
 const people = require('./routes/people-controller');
-
+const all = require('./routes/all-controller')
 const auth = require('./routes/auth');
 const connectDB = require('./db/connect');
 // Static Assets
@@ -21,6 +21,7 @@ app.use(express.json())
 // Routes/Router if url is used, use js
 app.use('/api/tasks', tasks)
 app.use('/api/people', people)
+app.use('/api/all', all)
 app.use('/login', auth)
 
 const initServer = async () => {

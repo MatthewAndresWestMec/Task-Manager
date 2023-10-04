@@ -1,20 +1,4 @@
-// const mongoose = require('mongoose');
-// //function with objects in an object
-// const personSchema = new mongoose.Schema({
-//     name:{
-//         type:String,
-//         required:[true,'provide name'],
-//         trim:true,
-//         maxLength:[20, "The name can't exceed 20 characters"]
-//     },
-//     age:{
-//         type:Number,
-//         default:5
-//     }
-// });
 
-// module.export = mongoose.model('Person', personSchema)
-// Model.find({complete: true})
 const mongoose = require('mongoose');
 
 const personSchema = new mongoose.Schema(
@@ -31,13 +15,11 @@ const personSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    tasksAssigned: [
+    tasksAssigned: 
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Task',
+        type: String,
         default: ''
       },
-    ],
   },
   {
     collection: 'People', 

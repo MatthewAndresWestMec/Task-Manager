@@ -7,7 +7,7 @@ const fetchTasks = async () => {
         console.log(data);
 
         const tasks = data.data.map((task) => {
-            return `<h5 taskID="header${task.taskID}">ID:${task.taskID}  TASK NAME:${task.taskName}<input type="checkbox" onchange="checkBox(${task.taskID})" taskID="${task.taskID}" name="checkFinish"><br> Desc: ${task.taskDesc} <br><button onclick="taskNameEdit('${task.taskID}', '${task.taskName}', '${task.taskDesc}')">Edit</button> <button onclick="deleteTask(${task.taskID})">Delete</button> <br> Assigned: ${task.assigned}  </h5>`;
+            return `<h5 taskID="header${task.taskID}">ID:${task.taskID}  TASK NAME:${task.taskName}<input type="checkbox" onchange="checkBox(${task.taskID})" taskID="${task.taskID}" name="checkFinish"><br> Desc: ${task.taskDesc} <br><button onclick="taskNameEdit('${task.taskID}', '${task.taskName}', '${task.taskDesc}')">Edit</button> <button onclick="deleteTask(${task.taskID})">Delete</button> <br> Assigned to User ID: ${task.assigned}  </h5>`;
         });
         result.innerHTML = tasks.join("");
     } catch (error) {

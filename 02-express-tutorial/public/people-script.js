@@ -7,7 +7,7 @@ const fetchPeople = async () => {
         console.log(data);
 
         const people = data.data.map((person) => {
-            return `<h5 id="header${person.id}">ID:${person.id}  TASK NAME:${person.name}<br> Age: ${person.age} <br><button onclick="nameEdit('${person.id}', '${person.name}','${person.age}')">Edit</button> <button onclick="deletePeople(${person.id})">Delete</button>  </h5>`;
+            return `<h5 id="header${person.id}">ID:${person.id}  NAME:${person.name}<br> Age: ${person.age} <br><button onclick="nameEdit('${person.id}', '${person.name}','${person.age}')">Edit</button> <button onclick="deletePeople(${person.id})">Delete</button>  </h5>`;
         })
         result.innerHTML = people.join("");
     } catch (error) {

@@ -11,31 +11,31 @@ const people = [
       name: "John Smith",
       id: 1,
       age: "12",
-      tasksAssigned: []
+      tasksAssigned: ""
   },
   {
       name: "Emily Johnson",
       id: 2,
       age: "19",
-      tasksAssigned: []
+      tasksAssigned: ""
   },
   {
       name: "Michael Brown",
       id: 3,
       age: "45",
-      tasksAssigned: []
+      tasksAssigned: ""
   },
   {
       name: "Sarah Davis",
       id: 4,
       age: "17",
-      tasksAssigned: []
+      tasksAssigned: ""
   },
   {
       name: "William Wilson",
       id: 5,
       age: "29",
-      tasksAssigned: []
+      tasksAssigned: ""
   }
 ];
 
